@@ -1,0 +1,24 @@
+{
+  "name": "Coiniverse",
+  "description": "An alternate, pixelated life based on your Coinbase balance.",
+  "version": "0.0.1",
+  "author": "something Labs",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lambtron/coiniverse"
+  },
+  "engines": {
+    "node": "0.10.22",
+    "npm": "1.1.x"
+  },
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "mongoose": "2.x",
+    "underscore": "latest",
+    "socket.io": "latest",
+    "moment": "latest",
+    "analytics-node": ""
+  }
+}

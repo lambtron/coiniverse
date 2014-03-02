@@ -1,0 +1,57 @@
+<!-- index.html -->
+<!DOCTYPE html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html lang="en" ng-app="coiniverse">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<title>Coiniverse</title>
+
+	<!-- FAVICON -->
+	<!--
+	<link rel="shortcut icon" href="/public/img/favicon.png">
+	<link rel="apple-touch-icon-precomposed" href="/public/img/apple-touch-icon.png">
+	-->
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/public/css/index.css">
+	<!-- load bootstrap -->
+
+	<!-- SPELLS -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/public/js/app.js"></script>
+	<script src="/public/js/config.js"></script>
+	<script src="/public/js/services.js"></script>
+	<script src="/public/js/controllers.js"></script>
+	<script src="/public/js/directives.js"></script>
+
+	<!-- Page specific js. -->
+	<script src="/public/js/index.js"></script>
+
+	<!-- Relative routing for $locationProvider. -->
+	<base href="/">
+</head>
+
+<!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
+<body>
+	<div ng-view>
+	</div>
+
+	<div class="row">
+		<footer class="col-xs-12 footer">
+			Made w <span class="glyphicon glyphicon-heart" style="color: #EE2C2C"></span> by <a href="http://www.twitter.com/somethingLabs">something Labs</a>
+		</footer>
+	<div>
+</body>
+</html>
