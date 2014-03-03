@@ -1,3 +1,16 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: url('/public/img/sky.png');
+  /*background-position: 0% 50%;*/
+  background-repeat: repeat-y;
+  background-size: 100%;
+  display: inline-block;
+}
+
 footer {
   margin: 60px 0px 10px 0px;
   text-align: center;
