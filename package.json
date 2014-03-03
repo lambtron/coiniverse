@@ -19,6 +19,7 @@
     "underscore": "latest",
     "socket.io": "latest",
     "moment": "latest",
-    "analytics-node": ""
+    "analytics-node": "",
+    "coinbase": "*"
   }
 }
