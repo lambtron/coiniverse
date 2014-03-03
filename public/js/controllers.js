@@ -17,5 +17,10 @@ coiniverse.controller('setupController',
   ['$scope', '$http', '$location',
   function ($scope, $http, $location)
 {
+  $scope.connectCoinbase = function connectCoinbase () {
+    // Redirect user to this page
+    // https://coinbase.com/oauth/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_CALLBACK_URL
 
+    //
+  };
 }]);
