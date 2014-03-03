@@ -7,14 +7,22 @@ coiniverse.controller('skyController',
   // Get current time.
   // Then update the css background-position to that location.
   var sky = $scope.sky = {
-    position: 100, // 0 to 100.
+    position: 0, // 0 to 100.
     calculatePosition: function calculatePosition () {
       var date = new Date();
       var hour = date.getHours();
       var month = date.getMonth();
 
       // Sets an integer from 0 to 100.
-      this.position = 0;
+      this.position = 100;
+    },
+    weather: {
+      type: '', // clear, cloudy, rainy, snowy, t-storms
+      severity: 0 // 0 to 10; 10 being most severe.
+    },
+    calculateWeather: function calculateWeather () {
+      // Set the weather object.
+      this.weather;
     }
   };
 
