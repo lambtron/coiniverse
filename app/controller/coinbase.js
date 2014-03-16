@@ -10,7 +10,7 @@
 
   module.exports = {
 
-    // OAuth shit
+    // OAUTH
 
     getCoinbaseAuthUrl: function () {
       console.log("getting redirect url")
@@ -44,33 +44,58 @@
       requestAccessToken(params, callback);
     },
 
-    // API stuff
+    // API
 
     getAccountBalance: function (callback) {
-      console.log("getting account balance");
-      makeHTTPSRequest('GET', '/api/v1/account/balance', true, function (res) {
-        if (!res) {
-          callback({
-            err: "permission denied",
-            msg: "no access or refresh token. please authorize!"
-          });
-        } else {
-          callback(res);
-        }
+      makeHTTPSRequest('GET', '/api/v1/account/balance?', true, function (res) {
+        callback(res);
+      });
+    },
+
+    getMinimumBitcoinBuyAmount: function (callback) {
+      makeHTTPSRequest('GET', '/api/v1/prices/buy', false, function(res) {
+        callback(0.1 / res.total.amount);
+      });
+    },
+
+    getMinimumBitcoinSellAmount: function (callback) {
+      makeHTTPSRequest('GET', '/api/v1/prices/sell', false, function(res) {
+        callback(0.15 / res.total.amount);
+      });
+    },
+
+    buyBitcoins: function (amount, callback) {
+      makeHTTPSRequest('POST', '/api/v1/buys?qty=' + amount + '&', true, function(res) {
+        callback(res);
+      })
+    },
+
+    sellBitcoins: function (amount, callback) {
+      makeHTTPSRequest('POST', '/api/v1/sells?qty=' + amount + '&', true, function(res) {
+        callback(res);
+      })
+    },
+
+    getCurrentBitcoinPrice: function (callback) {
+      makeHTTPSRequest('GET', '/api/v1/prices/buy', false, function(res) {
+        callback(res);
       });
     }
-
   }
 
   // Private
+
   var makeHTTPSRequest = function (type, url, withAccessToken, callback) {
     if (withAccessToken && typeof accessToken === 'undefined') {
-      callback(false);
+      callback({
+        err: "permission denied",
+        msg: "no access or refresh token. please authorize!"
+      });
     } else {
       var options = {
         method: type,
         host: 'coinbase.com',
-        path: (withAccessToken) ? url  + '?access_token=' + accessToken : url
+        path: (withAccessToken) ? url  + 'access_token=' + accessToken : url
       }
       var req = https.request(options, function(res) {
         var output = ''
@@ -99,6 +124,7 @@
     makeHTTPSRequest('POST', '/oauth/token?' + params, false, function(res) {
       accessToken = res.access_token;
       refreshToken = res.refresh_token;
+      console.log("access token is " + accessToken);
       callback();
     });
   }
