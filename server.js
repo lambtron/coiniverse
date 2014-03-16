@@ -7,6 +7,7 @@ var express = require('express')
   , server = http.createServer(app)
   , mongoose = require('mongoose')
   , database = require('./config/database')
+  , coinbase = require('./app/controller/coinbase')
   , io = require('socket.io').listen(server)
   , port = process.env.PORT || 3000;
 
