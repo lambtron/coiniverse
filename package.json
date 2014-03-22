@@ -17,7 +17,6 @@
     "express": "3.x",
     "mongoose": "2.x",
     "underscore": "latest",
-    "socket.io": "latest",
     "moment": "latest",
     "analytics-node": "",
     "coinbase": "*"

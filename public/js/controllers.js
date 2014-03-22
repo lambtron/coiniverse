@@ -97,17 +97,6 @@ coiniverse.controller('homeController',
     }
   };
 
-  // var asyncFnArr = [];
-
-  // sprites.forEach(function(i){
-  //   asyncFnArr.push(function(callback){
-  //     items.addNew(new Item(sprites[i], callback));
-  //   });
-  // });
-
-  // console.log($q.defer());
-
-
   function loadAll(arr) {
     var deferred = $q.defer();
 
@@ -136,15 +125,6 @@ coiniverse.controller('homeController',
     console.log('update: ' + update);
   });
 
-
-  // $async(asyncFnArr, function(err, results) {
-  //   // make sure there are no falses in results[1]
-  //   // proceed
-  //   console.log(results);
-  //   $interval(game, 3000);
-  // });
-
-
   // Loop.
   function game () {
     items.update();
@@ -157,9 +137,6 @@ coiniverse.controller('setupController',
   function ($scope, $http, $location)
 {
   $scope.connectCoinbase = function connectCoinbase () {
-    // Redirect user to this page
-    // https://coinbase.com/oauth/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_CALLBACK_URL
-
-    //
+    $location.path('/coinbase/authorize');
   };
 }]);

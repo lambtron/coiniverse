@@ -6,7 +6,7 @@ function($routeProvider, $locationProvider) {
     templateUrl: 'public/views/pages/setup.html',
     controller: 'setupController'
   }).
-  when('/home/:psetid', {
+  when('/home/:id', {
     templateUrl: 'public/views/pages/home.html',
     controller: 'homeController'
   }).

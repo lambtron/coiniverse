@@ -8,7 +8,6 @@ var express = require('express')
   , mongoose = require('mongoose')
   , database = require('./config/database')
   , coinbase = require('./app/controller/coinbase')
-  , io = require('socket.io').listen(server)
   , port = process.env.PORT || 3000;
 
 // Configuration ===============================================================
@@ -19,7 +18,7 @@ app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(express.bodyParser());
 
 // Routes ======================================================================
-require('./config/routes.js')(app, io);
+require('./config/routes.js')(app);
 
 // Listen (start app with node server.js) ======================================
 server.listen(port, function() {

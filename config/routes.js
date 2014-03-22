@@ -14,7 +14,7 @@ var coinbase = require('../app/controller/coinbase');
 // Initialize hashing variables.
 
 // Public functions. ===========================================================
-module.exports = function (app, io) {
+module.exports = function (app) {
   // API routes ================================================================
   app.get('/coinbase/authorize', function (req, res) {
     res.redirect(coinbase.getCoinbaseAuthUrl());
