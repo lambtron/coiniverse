@@ -32,15 +32,123 @@ coiniverse.controller('skyController',
 }]);
 
 coiniverse.controller('homeController',
-  ['$scope', '$http', 'socket', '$routeParams', '$location',
-	function ($scope, $http, socket, $routeParams, $location)
+  ['$scope', '$http', 'socket', '$routeParams', '$location', '$interval',
+  '$q',
+	function ($scope, $http, socket, $routeParams, $location, $interval, $q)
 {
 
+  // Add canvas.
+  $('#home').append('<canvas id="canvas"></canvas>');
+  $('#canvas').css('width', '100%');
+  $('#canvas').css('height', '100%');
 
-  // Receiving data from server and pushing to front-end.
-  socket.of('/' + $routeParams.psetid, 'predictions', 300000, function (data) {
-    $scope.predictions = data;
+  var canvas = $('#canvas')[0];
+  var context = canvas.getContext('2d');
+
+  // Classes for items.
+  function Item (obj, callback) {
+    // name, src, width, height, totalFrames,
+    this.name = obj.name || '';
+    this.x = 0;
+    this.y = 0;
+    this.width = obj.width || 100;
+    this.height = obj.height || 100;
+    this.spriteSheet = new Image();                // This is the image element.
+    this.spriteSheet.src = obj.src || '';
+    this.spriteSheet.onload = function () {
+      callback(null, true);
+    };
+    this.frame = 0;
+    this.totalFrames = obj.totalFrames || 1;
+    this.update = function update () {
+      // Move position?
+      // Maybe change position?
+      // Draw itself?
+      context.drawImage(this.spriteSheet, this.frame * this.width, 0,
+        this.width, this.height, this.x, this.y, this.width, this.height);
+    };
+    this.changeFrame = function changeFrame () {
+      // Animation sprites.
+      this.frames = 1;
+    };
+  }
+
+  // Show person sprite.
+
+  var sprites = [
+    {
+      name: 'person',
+      width: 100,
+      height: 100,
+      src: '/public/img/man-1.png',
+      totalFrames: 1
+    }
+  ];
+
+  var items = {
+    arr: [],
+    addNew: function addNew (item) {
+      this.arr.push(item);
+    },
+    update: function update () {
+      this.arr.forEach(function(i) {
+        i.update();
+      });
+    }
+  };
+
+  // var asyncFnArr = [];
+
+  // sprites.forEach(function(i){
+  //   asyncFnArr.push(function(callback){
+  //     items.addNew(new Item(sprites[i], callback));
+  //   });
+  // });
+
+  // console.log($q.defer());
+
+
+  function loadAll(arr) {
+    var deferred = $q.defer();
+
+    for (var i = 0; i < arr.length; i++) {
+      items.addNew(new Item(arr[i], function(err, data) {
+        if (err)
+          deferred.reject('Some items did not load properly.');
+        // else
+        //   deferred.resolve('Loaded an item.');
+
+        if (i == arr.length)
+          deferred.resolve('Loaded all items.');
+      }));
+    }
+
+    return deferred.promise;
+  }
+
+  var promise = loadAll(sprites);
+  promise.then(function () {
+    console.log('success');
+    $interval(game(), 3000);
+  }, function (reason) {
+    console.log('reason: ' + reason);
+  }, function (update) {
+    console.log('update: ' + update);
   });
+
+
+  // $async(asyncFnArr, function(err, results) {
+  //   // make sure there are no falses in results[1]
+  //   // proceed
+  //   console.log(results);
+  //   $interval(game, 3000);
+  // });
+
+
+  // Loop.
+  function game () {
+    items.update();
+  }
 }]);
 
 // Controller used to POST and save bus stop data to the API.

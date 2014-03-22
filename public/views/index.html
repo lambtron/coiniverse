@@ -28,6 +28,7 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+	<script src="/public/lib/ng.async.js"></script>
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/public/js/app.js"></script>
@@ -41,13 +42,13 @@
 
 	<!-- Relative routing for $locationProvider. -->
 	<base href="/">
-
-	<!-- PIXI JS -->
-  <script src="/public/js/pixi.dev.js"></script>
 </head>
 
 <!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
 <body ng-controller="skyController" ng-style="{'background-position': '0% {{sky.position}}%'}">
+	<div class="row" style="height: 100px;">
+	</div>
+
 	<div ng-view>
 	</div>
 
