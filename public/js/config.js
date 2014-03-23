@@ -9,8 +9,8 @@ function($routeProvider, $locationProvider) {
   when('/home/:id', {
     templateUrl: 'public/views/pages/home.html',
     controller: 'homeController'
-  }).
-  otherwise({
-    redirectTo: '/'
   });
+  // otherwise({
+  //   redirectTo: '/'
+  // });
 }]);

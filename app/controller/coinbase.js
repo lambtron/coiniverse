@@ -4,7 +4,7 @@
 
   var clientId = "3269be233ce0aa999225b743445b543d92df4c5e9a79d6eb54fedd02bef75fe6";
   var clientSecret = "8ad715ebb4b0481aefe17f03db4a22c998775e1ef52e8c4c0f80ab9297e130fa";
-  var callbackUrl = "http://67fd428c.ngrok.com/coinbase/callback";
+  var callbackUrl = "http://10a71160.ngrok.com/coinbase/callback";
   var https = require('https');
   var accessToken, refreshToken;
 

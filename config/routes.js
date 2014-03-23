@@ -3,15 +3,6 @@
 (function() {
 
 var coinbase = require('../app/controller/coinbase');
-/**
- * Import model ================================================================
- */
-
-/**
- * Import helpers ==============================================================
- */
-
-// Initialize hashing variables.
 
 // Public functions. ===========================================================
 module.exports = function (app) {
@@ -28,7 +19,7 @@ module.exports = function (app) {
 
   app.get('/coinbase/callback', function (req, res) {
     coinbase.getAccessToken(req.query.code, function() {
-      res.redirect('/');
+      res.redirect('/home/');
     });
   });
 
@@ -69,7 +60,7 @@ module.exports = function (app) {
   });
 
 	// Application route =========================================================
-	app.get('/', function (req, res) {
+	app.get('/*', function (req, res) {
     res.sendfile('index.html', {'root': './public/views/'});
   });
 

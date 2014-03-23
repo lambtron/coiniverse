@@ -32,15 +32,27 @@ coiniverse.controller('skyController',
 }]);
 
 coiniverse.controller('homeController',
-  ['$scope', '$http', 'socket', '$routeParams', '$location', '$interval',
-  '$q',
-	function ($scope, $http, socket, $routeParams, $location, $interval, $q)
+  ['$scope', '$http', '$routeParams', '$location', '$interval',
+  '$q', '$window',
+	function ($scope, $http, $routeParams, $location, $interval, $q, $window)
 {
+  // Get balance.
+  $http.get('/coinbase/current_balance')
+  .success( function (data) {
+    console.log(data);
+  })
+  .error( function (data) {
+    console.log('Error');
+  });
+
+  // Static variables.
+  var WIDTH = $window.innerWidth;
+  var HEIGHT = $window.innerHeight;
+  var FLOOR_Y = Math.floor(HEIGHT/4*3);
 
   // Add canvas.
-  $('#home').append('<canvas id="canvas"></canvas>');
-  $('#canvas').css('width', '100%');
-  $('#canvas').css('height', '100%');
+  $('#home').append('<canvas id="canvas" width="' + WIDTH +
+    '" height="' + HEIGHT + '"></canvas>');
 
   var canvas = $('#canvas')[0];
   var context = canvas.getContext('2d');
@@ -50,7 +62,7 @@ coiniverse.controller('homeController',
     // name, src, width, height, totalFrames,
     this.name = obj.name || '';
     this.x = 0;
-    this.y = 0;
+    this.y = FLOOR_Y - obj.height;
     this.width = obj.width || 100;
     this.height = obj.height || 100;
     this.spriteSheet = new Image();                // This is the image element.
@@ -64,12 +76,24 @@ coiniverse.controller('homeController',
       // Move position?
       // Maybe change position?
       // Draw itself?
+      this.move();
+      this.changeFrame();
       context.drawImage(this.spriteSheet, this.frame * this.width, 0,
         this.width, this.height, this.x, this.y, this.width, this.height);
     };
     this.changeFrame = function changeFrame () {
       // Animation sprites.
-      this.frames = 1;
+      if (Math.random() < 0.08)
+        this.frame = 1;
+      else
+        this.frame = 0;
+    };
+    this.move = function move () {
+      var rand = Math.random();
+      if (rand > 0.95 && this.x < WIDTH)
+        this.x = this.x + 20;
+      else if (rand < 0.05 && this.x > 0)
+        this.x = this.x - 20;
     };
   }
 
@@ -78,10 +102,10 @@ coiniverse.controller('homeController',
   var sprites = [
     {
       name: 'person',
-      width: 100,
-      height: 100,
+      width: 85,
+      height: 136,
       src: '/public/img/man-1.png',
-      totalFrames: 1
+      totalFrames: 2
     }
   ];
 
@@ -118,7 +142,7 @@ coiniverse.controller('homeController',
   var promise = loadAll(sprites);
   promise.then(function () {
     console.log('success');
-    $interval(game(), 3000);
+    $interval(game, 100);
   }, function (reason) {
     console.log('reason: ' + reason);
   }, function (update) {
@@ -127,6 +151,7 @@ coiniverse.controller('homeController',
 
   // Loop.
   function game () {
+    context.clearRect(0, 0, WIDTH, HEIGHT);
     items.update();
   }
 }]);
@@ -136,7 +161,5 @@ coiniverse.controller('setupController',
   ['$scope', '$http', '$location',
   function ($scope, $http, $location)
 {
-  $scope.connectCoinbase = function connectCoinbase () {
-    $location.path('/coinbase/authorize');
-  };
+
 }]);
